@@ -1,19 +1,23 @@
 require 'torch'
 
 player1 = require 'naive_player'
+print(2)
 player2 = require 'td_learner'
+print(3)
 
 win1 = 0
 win2 = 0
 draw = 0
 
-for i = 1,10000 do
+for i = 1,5000000 do
 	
 	--take action
+	--print('action')
 	act1 = player1.action()
 	act2 = player2.action()
 	
 	--get reward
+	--print('reward')
 	if act1 == act2 then
 		draw = draw + 1
 		player1.reward(0)
@@ -29,6 +33,7 @@ for i = 1,10000 do
 	end
 	
 	--get state
+	--print('state')
 	player1.observe(act1, act2)
 	player2.observe(act2, act1)
 	
