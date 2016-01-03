@@ -45,9 +45,9 @@ model:add(bias_learner)
 criterion = nn.VRClassReward(model)
 
 function td_learner.action()
-    --print("Action")
+    print("Action")
     if torch.uniform() < 0.1 then 
-        --print('random')
+        print('random')
         dice = torch.uniform()
         if dice < 1/3 then
             return 1
@@ -61,27 +61,27 @@ function td_learner.action()
         --input[1][last_my_action] = 1
         input[1][last_op_action] = 1
         --print(input)
-        --print(l.weight)
+        print(l.weight)
         l.bias:fill(1)
-        --print(l.bias)
+        print(l.bias)
         predict = model:forward(input)
-        --print('predict', predict[1])
+        print('predict', predict[1])
         y,i = predict[1]:max(2)
 	    return i[1][1]
 	end
 end
 
 function td_learner.observe(my_action, op_action)
-    --print('Observe')
+    print('Observe')
     input = torch.zeros(1,3)
     --input[1][last_my_action] = 1
     input[1][last_op_action] = 1
-    --print('input',input)
+    print('input',input)
     target = torch.Tensor{op_action%3+1}
-    --print('target', target)
+    print('target', target)
     --print(input)
     predict = model:forward(input)
-    --print(l.output)
+    print(l.output)
     --print(predict)
     --print(c.bias)
     --print('bias = '..predict[2][{1,1}])
